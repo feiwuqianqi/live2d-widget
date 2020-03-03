@@ -35,7 +35,7 @@ function loadWidget(config) {
 	let userAction = false,
 		userActionTimer,
 		messageTimer,
-		messageArray = ["好久不见，日子过得好快呢……", "大坏蛋！你都多久没理人家了呀，嘤嘤嘤～", "嗨～快来逗我玩吧！", "拿小拳拳锤你胸口！", "记得把小家加入 Adblock 白名单哦！"];
+		messageArray = ["NM$L? 半天不动老子！", "方向你手中的针线活好吗，秋梨膏", "不来和👴玩，你在搞你🐎呢", "怎么不动了？在给你🐎选新的骨灰盒吗？", "半天不动，你死了🐎？"];
 	window.addEventListener("mousemove", () => userAction = true);
 	window.addEventListener("keydown", () => userAction = true);
 	setInterval(() => {
@@ -65,7 +65,7 @@ function loadWidget(config) {
 		document.querySelector("#waifu-tool .fa-user-circle").addEventListener("click", loadOtherModel);
 		document.querySelector("#waifu-tool .fa-street-view").addEventListener("click", loadRandModel);
 		document.querySelector("#waifu-tool .fa-camera-retro").addEventListener("click", () => {
-			showMessage("照好了嘛，是不是很可爱呢？", 6000, 9);
+			showMessage("你📸你🐎呢？", 6000, 9);
 			Live2D.captureName = "photo.png";
 			Live2D.captureFrame = true;
 		});
@@ -74,7 +74,7 @@ function loadWidget(config) {
 		});
 		document.querySelector("#waifu-tool .fa-times").addEventListener("click", () => {
 			localStorage.setItem("waifu-display", Date.now());
-			showMessage("愿你有一天能与重要的人重逢。", 2000, 11);
+			showMessage("爬爬爬，赶紧给👴爬。", 2000, 11);
 			document.getElementById("waifu").style.bottom = "-500px";
 			setTimeout(() => {
 				document.getElementById("waifu").style.display = "none";
@@ -84,13 +84,13 @@ function loadWidget(config) {
 		let devtools = () => {};
 		console.log("%c", devtools);
 		devtools.toString = () => {
-			showMessage("哈哈，你打开了控制台，是想要看看我的小秘密吗？", 6000, 9);
-		};
+			showMessage("哦？大佬来了！", 6000, 9);
+	};
 		window.addEventListener("copy", () => {
-			showMessage("你都复制了些什么呀，转载要记得加上出处哦！", 6000, 9);
+			showMessage("抄抄抄，NMD就tm只会抄是吧", 6000, 9);
 		});
 		window.addEventListener("visibilitychange", () => {
-			if (!document.hidden) showMessage("哇，你终于回来了～", 6000, 9);
+			if (!document.hidden) showMessage("球球宁啦，别烦我啦！", 6000, 9);
 		});
 	})();
 
@@ -107,31 +107,11 @@ function loadWidget(config) {
 			else if (now > 21 && now <= 23) text = ["已经这么晚了呀，早点休息吧，晚安～", "深夜时要爱护眼睛呀！"];
 			else text = "你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？";
 		} else if (document.referrer !== "") {
-			let referrer = new URL(document.referrer),
-				domain = referrer.hostname.split(".")[1];
-			if (location.hostname === referrer.hostname) text = `欢迎阅读<span>「${document.title.split(" - ")[0]}」</span>`;
-			else if (domain === "baidu") text = `Hello！来自 百度搜索 的朋友<br>你是搜索 <span>${referrer.search.split("&wd=")[1].split("&")[0]}</span> 找到的我吗？`;
-			else if (domain === "so") text = `Hello！来自 360搜索 的朋友<br>你是搜索 <span>${referrer.search.split("&q=")[1].split("&")[0]}</span> 找到的我吗？`;
-			else if (domain === "google") text = `Hello！来自 谷歌搜索 的朋友<br>欢迎阅读<span>「${document.title.split(" - ")[0]}」</span>`;
-			else text = `Hello！来自 <span>${referrer.hostname}</span> 的朋友`;
-		} else {
-			text = `欢迎阅读<span>「${document.title.split(" - ")[0]}」</span>`;
+			text = `找到👴啦？🐂🍺`;
 		}
 		showMessage(text, 7000, 8);
 	})();
 
-	function showHitokoto() {
-		// 增加 hitokoto.cn 的 API
-		fetch("https://v1.hitokoto.cn")
-			.then(response => response.json())
-			.then(result => {
-				let text = `这句一言来自 <span>「${result.from}」</span>，是 <span>${result.creator}</span> 在 hitokoto.cn 投稿的。`;
-				showMessage(result.hitokoto, 6000, 9);
-				setTimeout(() => {
-					showMessage(text, 4000, 9);
-				}, 6000);
-			});
-	}
 
 	function showMessage(text, timeout, priority) {
 		if (!text || (sessionStorage.getItem("waifu-text") && sessionStorage.getItem("waifu-text") > priority)) return;
@@ -155,7 +135,7 @@ function loadWidget(config) {
 			modelTexturesId = localStorage.getItem("modelTexturesId");
 		if (modelId === null) {
 			// 首次访问加载 指定模型 的 指定材质
-			modelId = 1; // 模型 ID
+			modelId = 5; // 模型 ID
 			modelTexturesId = 53; // 材质 ID
 		}
 		loadModel(modelId, modelTexturesId);
@@ -219,14 +199,14 @@ function loadWidget(config) {
 			if (!modelList) await loadModelList();
 			let target = randomSelection(modelList.models[modelId]);
 			loadlive2d("live2d", `${cdnPath}model/${target}/index.json`);
-			showMessage("我的新衣服好看嘛？", 4000, 10);
+			showMessage("👴的新衣服好看🐎？", 4000, 10);
 		} else {
 			// 可选 "rand"(随机), "switch"(顺序)
 			fetch(`${apiPath}rand_textures/?id=${modelId}-${modelTexturesId}`)
 				.then(response => response.json())
 				.then(result => {
-					if (result.textures.id === 1 && (modelTexturesId === 1 || modelTexturesId === 0)) showMessage("我还没有其他衣服呢！", 4000, 10);
-					else loadModel(modelId, result.textures.id, "我的新衣服好看嘛？");
+					if (result.textures.id === 1 && (modelTexturesId === 1 || modelTexturesId === 0)) showMessage("给👴充钱买衣服吧，没衣服换了！", 4000, 10);
+					else loadModel(modelId, result.textures.id, "👴的新衣服好看吧！");
 				});
 		}
 	}
